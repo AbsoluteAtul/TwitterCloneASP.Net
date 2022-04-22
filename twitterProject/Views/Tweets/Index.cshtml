@@ -1,0 +1,91 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextaccessor
+@model IEnumerable<twitterProject.Models.Tweet>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<html>
+    <head>
+       <link rel='stylesheet' type='text/css' media='screen' href='~/css/style.css'>
+    </head>
+     <h1>Index</h1>
+
+        <div class="layout">
+        <div class="layout__left-sidebar">
+            <div class="sidebar-menu">
+                <div class="sidebar-menu__item sidebar-menu__item--active">
+                    <img src="./svg/home.svg" class="sidebar-menu__item-icon" />
+                     @Html.ActionLink("Home", "Index", "Tweets", null)
+                </div>
+                <div class="sidebar-menu__item">
+                    <img src="./svg/explore.svg" class="sidebar-menu__item-icon" />
+                     @Html.ActionLink("Tweet", "Create", "Tweets", null)
+                </div>
+
+                <div class="sidebar-menu__item">
+                    <img src="./svg/profile.svg" class="sidebar-menu__item-icon" />
+                    @Html.ActionLink("Users", "Index", "Users", null)
+                </div>
+                 @{
+                string name = httpContextaccessor.HttpContext.Request.Cookies["Check"];
+                string UserId = httpContextaccessor.HttpContext.Request.Cookies["Id"];
+        
+                }
+                <div class="sidebar-menu__item">
+                    <img src="./svg/profile.svg" class="sidebar-menu__item-icon" />
+                    <a style="text-decoration:none;" class="nav-text text-light" asp-action="Edit" asp-controller="Users" asp-route-id="@UserId">
+                  <span>@name</span></a>
+                </div>
+                <div class="sidebar-menu__item">
+                    <img src="./svg/more.svg" class="sidebar-menu__item-icon" />
+                     @Html.ActionLink("Logout", "Logout", "Home", null)
+                </div>
+            </div>
+        </div>
+        </div>
+
+    <body>
+        <div  class="tweetBody">
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+
+    </body>
+</html>
+

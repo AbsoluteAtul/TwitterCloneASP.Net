@@ -1,0 +1,194 @@
+.signup {
+    background-color: #1da1f2;
+    color: white;
+    font-weight: bold;
+    margin: 5% 3% 5% 0;
+    width: 50%;
+    border-radius: 99px;
+}
+
+.loginbtn {
+    color: #1da1f2;
+    font-weight: bold;
+    margin: 5% 3% 5% 0;
+    width: 50%;
+    border-color: rgb(207, 217, 222);
+    border-radius: 99px;
+}
+
+.fa-twitter {
+    color: #1da1f2;
+}
+
+.title-image {
+    width: 120%;
+    z-index: 0;
+    position: absolute;
+    right: 0%;
+}
+
+.title {
+    margin-top: 10%;
+    margin-left: 65%;
+}
+
+/*/////////////CREATE USER PAGE////////////////*/
+
+.registerform {
+    border-radius: 59px;
+    text-align: center;
+    margin: 10% 30%;
+    background-color: aliceblue
+}
+
+.form-group {
+    margin: 10px 70px;
+    width: 70%;
+}
+
+/*/////////////////////////////////////////////////////SIDEBAR/////////////////////////////////////////////////////////*/
+
+.layout {
+    display: grid;
+    grid-template-columns: 275px auto 350px;
+    margin: 0 10;
+    max-width: 1200px;
+}
+
+.layout__right-sidebar {
+    position: fixed;
+    width: 350px;
+}
+
+.sidebar-menu {
+    position: fixed;
+}
+
+.sidebar-menu__item {
+    font-size: 19px;
+    color: #0F141A;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    padding: 10px;
+}
+
+    .sidebar-menu__item:hover {
+        background: rgba(29, 161, 242, 0.1);
+        color: #1da0f2;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+
+.sidebar-menu__item--active {
+    color: #1da0f2;
+}
+
+.sidebar-menu__item-icon {
+    height: 26px;
+    margin-right: 20px;
+}
+
+.sidebar-menu__item--active .sidebar-menu__item-icon {
+    filter: invert(67%) sepia(60%) saturate(4956%) hue-rotate(176deg) brightness(95%) contrast(99%);
+}
+
+/*/////////////////////////// LOGIN MODAL //////////////////////////*/
+
+input[type=text], input[type=password] {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 18px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.button {
+    font-weight: bold;
+    margin: 5% 3% 5% 0;
+    width: 80%;
+    border-radius: 99px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.logincontainer {
+    text-align: center;
+    padding: 100px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 60%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 45%; /* Could be more or less, depending on screen size */
+    border-radius: 59px;
+}
+
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {
+        -webkit-transform: scale(0)
+    }
+
+    to {
+        -webkit-transform: scale(1)
+    }
+}
+
+@keyframes animatezoom {
+    from {
+        transform: scale(0)
+    }
+
+    to {
+        transform: scale(1)
+    }
+}
+
+@media screen and (max-width: 300px) {
+    span.psw {
+        display: block;
+        float: none;
+    }
+}
+
+/*Tweets Page*/
+
+.tweetBody{
+    background-color:aliceblue;
+    text-align:center;
+    width:70%;
+    margin-left:10%;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
