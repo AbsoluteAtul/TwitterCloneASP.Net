@@ -8,7 +8,7 @@
 }
 
 @{
-    int loggedUserId = Int32.Parse(httpContextaccessor.HttpContext.Request.Cookies["ID"]);
+    int loggedUserId = Int32.Parse(httpContextaccessor.HttpContext.Request.Cookies["Id"]);
 }
 
 <p>
@@ -30,8 +30,6 @@
 @foreach (var item in Model) {
             if (item.Id != loggedUserId)
             {
-
-
                 string btnClass = "", labelName = "";
 
                 var follow = item.Follows.FirstOrDefault(f => f.UserID == loggedUserId);
@@ -54,13 +52,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td> @{
+            @{
                     var parms = new Dictionary<string, string>
-                            {
+                            {              
                                 {"UserID", loggedUserId.ToString()},
                                 {"FollowingID", item.Id.ToString()}
                             };

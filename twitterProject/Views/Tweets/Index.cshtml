@@ -7,6 +7,10 @@
     ViewData["Title"] = "Index";
 }
 
+@{
+    int currentUserID = Int32.Parse(httpContextaccessor.HttpContext.Request.Cookies["Id"]);       
+}
+
 <html>
     <head>
        <link rel='stylesheet' type='text/css' media='screen' href='~/css/style.css'>
@@ -64,44 +68,52 @@
 
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Email)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-</div>
 
+@foreach (var item in Model) {
+    
+<div class="tweetContainer">
+
+    <div class="username">
+        @Html.DisplayFor(modelItem => item.User.FirstName)
+    </div> 
+    <div class="email">
+         @Html.DisplayFor(modelItem => item.User.Email)
+    </div>
+    <div class="description">
+         @Html.DisplayFor(modelItem => item.Description)
+    </div>
+    <div class="date">
+     @Html.DisplayFor(modelItem => item.CreatedDate)
+    </div>
+    <hr />
+     @{
+                var parms = new Dictionary<string, string>
+                        {
+                            { "TweetID", item.Id.ToString() },
+                            { "UserID", currentUserID.ToString() }
+                        };
+
+                string pathImg = "";
+
+                if (item.Likes.FirstOrDefault<Like>(l => l.UserID == currentUserID && l.TweetID == item.Id) != null)
+                {
+                    pathImg = "https://img.icons8.com/office/344/like--v1.png";
+                }
+                else
+                {
+                    pathImg = "https://img.icons8.com/ios/344/like--v1.png";
+                }
+            }
+            <div class="text-center m-0 w-50 mx-auto">
+            @item.Likes.Count <a class="mb-0 p-1" style="text-decoration:none;" asp-action="Create" asp-controller="Likes" asp-all-route-data = "parms">
+                <img class="imgLike" alt="" src="@pathImg"/></a>
+        </div>
+
+       </div>
+
+}
     </body>
 </html>
+
+
 

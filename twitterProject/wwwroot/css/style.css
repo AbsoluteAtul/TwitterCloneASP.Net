@@ -51,8 +51,7 @@
 .layout {
     display: grid;
     grid-template-columns: 275px auto 350px;
-    margin: 0 10\;
-    max-width: 1200px;
+    margin: 0 10\; max-width: 1200px;
 }
 
 .layout__right-sidebar {
@@ -181,11 +180,11 @@ span.psw {
 
 /*Tweets Page*/
 
-.tweetBody{
-    background-color:aliceblue;
-    text-align:center;
-    width:70%;
-    margin-left:10%;
+.tweetBody {
+    background-color: aliceblue;
+    text-align: center;
+    width: 70%;
+    margin-left: 10%;
 }
 
 a {
@@ -200,4 +199,8 @@ a {
     text-align: center;
     margin-left: 30%;
     margin-top: 10%;
+}
+
+.imgLike {
+    width: 6%;
 }

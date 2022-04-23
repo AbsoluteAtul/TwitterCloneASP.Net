@@ -59,94 +59,54 @@ namespace twitterProject.Controllers
         // POST: Likes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public async Task<IActionResult> Create([Bind("TweetID,UserID")] Like like)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(like);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["TweetID"] = new SelectList(_context.Tweets, "Id", "Description", like.TweetID);
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Email", like.UserID);
-            return View(like);
-        }
+                ModelState.Remove(nameof(like.Tweet));
+                ModelState.Remove(nameof(like.User));
 
-        // GET: Likes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+                bool flag = _context.Likes.Any(e => e.UserID == like.UserID && e.TweetID == like.TweetID);
 
-            var like = await _context.Likes.FindAsync(id);
-            if (like == null)
-            {
-                return NotFound();
-            }
-            ViewData["TweetID"] = new SelectList(_context.Tweets, "Id", "Description", like.TweetID);
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Email", like.UserID);
-            return View(like);
-        }
-
-        // POST: Likes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TweetID,UserID")] Like like)
-        {
-            if (id != like.TweetID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
+                if (flag == false)
                 {
-                    _context.Update(like);
-                    await _context.SaveChangesAsync();
+                    if (ModelState.IsValid)
+                    {
+                        _context.Add(like);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction("Index", "Tweets");
+                    }
+
+                    return RedirectToAction("Index", "Tweets");
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!LikeExists(like.TweetID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return RedirectToAction("Delete", new { UserID = like.UserID, TweetID = like.TweetID });
                 }
-                return RedirectToAction(nameof(Index));
             }
-            ViewData["TweetID"] = new SelectList(_context.Tweets, "Id", "Description", like.TweetID);
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Email", like.UserID);
-            return View(like);
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index", "Tweets");
+            }
         }
 
         // GET: Likes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int TweetId, int UserId)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var like = await _context.Likes
                 .Include(l => l.Tweet)
                 .Include(l => l.User)
-                .FirstOrDefaultAsync(m => m.TweetID == id);
+                .FirstOrDefaultAsync(m => m.TweetID == TweetId && m.UserID == UserId);
+
             if (like == null)
             {
                 return NotFound();
             }
 
-            return View(like);
+            _context.Likes.Remove(like);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Tweets");
         }
 
         // POST: Likes/Delete/5
