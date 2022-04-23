@@ -1,3 +1,7 @@
+html {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+}
+
 .signup {
     background-color: #1da1f2;
     color: white;
@@ -180,19 +184,10 @@ span.psw {
 
 /*Tweets Page*/
 
-.tweetBody {
-    background-color: aliceblue;
-    text-align: center;
-    width: 70%;
-    margin-left: 10%;
-}
-
 a {
     text-decoration: none;
     color: black;
 }
-
-/*/////////////////////////// Tweet Page //////////////////////////*/
 
 .tweetBox {
     background-color: #1da1f2;
@@ -201,6 +196,195 @@ a {
     margin-top: 10%;
 }
 
-.imgLike {
-    width: 6%;
+/*/////////////////////////// Tweet Page //////////////////////////*/
+
+.tweetBody {
+    background-color: deepskyblue;
+    text-align: center;
+    width: 70%;
+    margin-left: 15%;
 }
+
+.tweetContainer {
+    display: flex;
+    border-bottom: 1px solid #e6ecf0;
+    margin-bottom: 2px;
+    padding: 10px 15px;
+}
+
+    .tweetContainer:hover {
+        background: rgba(0, 0, 0, 0.03);
+        cursor: pointer;
+    }
+
+    .tweetContainer a {
+        color: #1b94e0;
+        text-decoration: none;
+    }
+
+        .tweetContainer a:hover {
+            text-decoration: underline;
+        }
+
+.tweetHeader {
+    display: flex;
+}
+
+.username {
+    /*font-weight: 800;
+    text-align: left;
+    margin-top: 1%;
+    margin-left: 1%;
+    padding-left: 5%;*/
+    font-size: 15px;
+    font-weight: 700;
+    color: #14171a;
+    margin-right: 5px;
+}
+
+.email {
+    /* text-align: left;
+    margin-top: 1%;
+    margin-left: 1%;*/
+    color: #5b7083;
+    font-size: 15px;
+}
+
+.date {
+    margin-left: 5px;
+    color: #657786;
+}
+
+.likeContainer {
+    margin-bottom: 1%;
+    margin-left: 1%;
+    padding-left: 5%;
+    margin-left: 0%;
+    text-align: left;
+}
+
+.imgLike {
+    width: 3%;
+    text-align: left;
+    margin-left: 0%;
+}
+
+.description {
+    display: block;
+    text-align: center;
+    margin: 1%;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 275px auto 350px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+/*/////////////////////////////////////RIGHT SIDEBAR/////////////////////////////////////////////////////////*/
+
+.layout__right-sidebar {
+    right: 0;
+    top: 0;
+    width: 350px;
+    margin: 2%
+}
+
+.trends-for-you {
+    border-radius: 15px;
+    background: #f5f8fa;
+    margin-bottom: 15px;
+}
+
+.trends-for-you__block {
+    border-bottom: 1px solid #e6ecf0;
+    padding: 10px 15px;
+}
+
+    .trends-for-you__block:last-child {
+        border-bottom: none;
+    }
+
+.trends-for-you__heading {
+    font-size: 19px;
+    font-weight: bold;
+    color: #14171a;
+}
+
+.trends-for-you__meta-information {
+    font-size: 13px;
+    font-weight: 300;
+    color: #657786;
+}
+
+.trends-for-you__trend-name {
+    font-size: 15px;
+    color: #14171a;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 2px;
+}
+
+.who-to-follow {
+    background: #f5f8fa;
+    border-radius: 15px;
+}
+
+.who-to-follow__block {
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e6ecf0;
+}
+
+    .who-to-follow__block:last-child {
+        border-bottom: none;
+    }
+
+.who-to-follow__author-logo {
+    width: 49px;
+    height: 49px;
+    border-radius: 50px;
+    margin-right: 10px;
+}
+
+.who-to-follow__author-slug {
+    color: #657786;
+    font-size: 15px;
+}
+
+.who-to-follow__author-name {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.who-to-follow__content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.who-to-follow__heading {
+    font-size: 19px;
+    font-weight: bold;
+    color: #14171a;
+}
+
+.who-to-follow__button {
+    border: 1px solid #1da0f2;
+    color: #1da0f2;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 15px;
+    padding: 5px;
+    min-width: 67px;
+    text-align: center;
+}
+
+    .who-to-follow__button:hover {
+        background: rgba(29, 161, 242, 0.1);
+        cursor: pointer;
+    }
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////*/
