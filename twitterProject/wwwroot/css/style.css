@@ -51,7 +51,7 @@
 .layout {
     display: grid;
     grid-template-columns: 275px auto 350px;
-    margin: 0 10;
+    margin: 0 10\;
     max-width: 1200px;
 }
 
@@ -191,4 +191,13 @@ span.psw {
 a {
     text-decoration: none;
     color: black;
+}
+
+/*/////////////////////////// Tweet Page //////////////////////////*/
+
+.tweetBox {
+    background-color: #1da1f2;
+    text-align: center;
+    margin-left: 30%;
+    margin-top: 10%;
 }

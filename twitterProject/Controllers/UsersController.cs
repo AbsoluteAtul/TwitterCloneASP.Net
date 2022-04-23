@@ -24,7 +24,14 @@ namespace twitterProject.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            if (Request.Cookies["Check"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(await _context.Users
+                .Include(u => u.Follows)
+                .ToListAsync());
         }
 
         // GET: Users/Details/5

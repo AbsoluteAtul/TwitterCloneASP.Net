@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor httpContextaccessor
 @model IEnumerable<twitterProject.Models.Tweet>
+@*@model twitterProject.Models.Tweet*@
 
 @{
     ViewData["Title"] = "Index";
@@ -48,6 +49,21 @@
 
     <body>
         <div  class="tweetBody">
+
+   @*@*         <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>*@
+
+
+
+
 <table class="table">
     <thead>
         <tr>

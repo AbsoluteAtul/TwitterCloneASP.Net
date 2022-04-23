@@ -29,8 +29,34 @@ namespace twitterProject.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var twitterContext = _context.Tweets.Include(t => t.User);
-            return View(await twitterContext.ToListAsync());
+            List<Tweet> myFeed = new List<Tweet>();
+            List<int> followingIDs = new List<int>();
+
+            var user = await _context.Users
+                .Include(t => t.Tweets)
+                .Include(t => t.Follows)
+                .FirstOrDefaultAsync(m => m.Id == Int32.Parse(Request.Cookies["ID"]));
+
+            var followingIDss = _context.Follow
+                .Where<Follow>(m => m.UserID == user.Id);
+
+            followingIDs.Add(user.Id);
+
+            foreach (Follow f in followingIDss)
+            {
+                followingIDs.Add(f.FollowingID);
+            }
+
+            var followingTweets = _context.Tweets
+                .Include(t => t.User)
+                .Include(t => t.Likes)
+                .Where<Tweet>(m => followingIDs.Contains(m.UserId));
+
+            myFeed = followingTweets.ToList<Tweet>();
+
+            List<Tweet> SortedList = myFeed.OrderByDescending(t => t.CreatedDate).ToList();
+
+            return View(SortedList);
         }
 
         // GET: Tweets/Details/5
@@ -89,32 +115,6 @@ namespace twitterProject.Controllers
             }
             return View(tweet);
         }
-
-        //public async Task<IActionResult> Create([Bind("Id,Description")] Tweet tweet)
-        //{
-        //    try
-        //    {
-        //        // ignore like property
-        //        ModelState.Remove(nameof(tweet.Likes));
-
-        //        tweet.UserId = Int32.Parse(Request.Cookies["Id"]);
-        //        tweet.CreatedDate = DateTime.Now;
-
-        //        if (ModelState.IsValid)
-        //        {
-        //            _context.Add(tweet);
-        //            await _context.SaveChangesAsync();
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", tweet.UserId);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e.Message);
-        //    }
-
-        //    return View(tweet);
-        //}
 
         // GET: Tweets/Edit/5
         public async Task<IActionResult> Edit(int? id)

@@ -4,12 +4,21 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<html>
+    <head>
+         <link rel='stylesheet' type='text/css' media='screen' href='~/css/style.css'>
+    </head>
+    <body>
+
+
+
+
+        <h1>Create</h1>
 
 <h4>Tweet</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 tweetBox">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -22,6 +31,15 @@
         </form>
     </div>
 </div>
+
+
+
+
+
+
+    </body>
+</html>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

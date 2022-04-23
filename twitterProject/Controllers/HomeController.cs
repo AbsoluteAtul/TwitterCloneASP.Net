@@ -57,8 +57,10 @@ namespace twitterProject.Controllers
                 //Checking Password
                 if (user.Password.Equals(formCollection["password"].ToString().Trim()))
                 {
+                    // Response.Cookies("Check") = 12;
                     Response.Cookies.Append("Check", user.FirstName);
                     Response.Cookies.Append("Id", user.Id.ToString());
+
                     loggedUser = user;
                     return RedirectToAction("Index", "Tweets");
                 }
