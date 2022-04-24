@@ -14,15 +14,18 @@ namespace twitterProject.Controllers
             _context = context;
         }
 
+        //Action to create a follow. Instead of calling the view, we just call the action to create a follow.
         [HttpGet]
         public async Task<IActionResult> Create([Bind("UserID, FollowingID")] Follow follow)
         {
             try
             {
+                //Check if the suer is already following another user
                 ModelState.Remove(nameof(follow.Following));
-                bool flag = _context.Follow.Any(e => e.FollowingID == follow.FollowingID && e.UserID == follow.UserID);
+                bool isFollowing = _context.Follow.Any(e => e.FollowingID == follow.FollowingID && e.UserID == follow.UserID);
 
-                if (flag == false)
+                //If not, then follow him/her
+                if (isFollowing == false)
                 {
                     if (ModelState.IsValid)
                     {
@@ -33,6 +36,7 @@ namespace twitterProject.Controllers
 
                     return RedirectToAction("Index", "Users");
                 }
+                //Otherwise delete the follow. or Simply unfollow anothr user.
                 else
                 {
                     return RedirectToAction("Delete", new { UserID = follow.UserID, FollowingID = follow.FollowingID });
@@ -44,6 +48,7 @@ namespace twitterProject.Controllers
             }
         }
 
+        //Action to delete a follow. Here also instead of calling the view, we directly call the action to unfollow a user.
         public async Task<IActionResult> Delete(int UserID, int FollowingID)
         {
             var follow = _context.Follow

@@ -80,7 +80,6 @@
                         @Html.Password("Password", null, new { @class = "form-control w-100", placeholder = "Password"
                         })
                     </div>
-                    @* <p class="text-danger m-auto w-75">@ViewBag.message</p>*@
                     <br />
                     <button id="loginbtn" value="Login" formaction="/Home" class="btn btn-dark btn-lg button"
                         type="submit">Login</button>
@@ -89,6 +88,15 @@
         </div>
 
 </body>
+
+<footer id="footer">
+    <i class="footer-item fa-brands fa-twitter"></i>
+    <i class="footer-item fa-brands fa-facebook-f"></i>
+    <i class="footer-item fa-brands fa-instagram"></i>
+    <i class="footer-item fa-solid fa-envelope"></i>
+    <p>© Copyright 2022 Team Lasalle Devs!</p>
+
+</footer>
 
 <script>
 
@@ -106,11 +114,13 @@
     //    modal.style.display = "none";
     //}
 
+
+    //Redirect to sign up page when user clicks sign up button
     function redirectSignUp() {
         document.location = '@Url.Action("Create","Users")';
     }
 
-
+    //Display the modal
     function showModal() {
         document.getElementById('id01').style.display = 'block';
         document.getElementById('id01').style.width = 'auto';

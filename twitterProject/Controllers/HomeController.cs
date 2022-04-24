@@ -10,7 +10,9 @@ namespace twitterProject.Controllers
         public User loggedUser = new User();
 
         private readonly TwitterContext _context;
+        //Log messages
         private readonly ILogger<HomeController> _logger;
+        //Request and response information
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public HomeController(TwitterContext context, ILogger<HomeController> logger, IHttpContextAccessor httpContextAccessor)
@@ -22,6 +24,7 @@ namespace twitterProject.Controllers
 
         public IActionResult Index()
         {
+            //Check if the user is logged in, then redirect him to tweets page.
             if (Request.Cookies["Check"] != null)
             {
                 return RedirectToAction("Index", "Tweets");
@@ -34,6 +37,7 @@ namespace twitterProject.Controllers
             return View();
         }
 
+        //We call this function to check if the user info matches an account in the database, then log in or stop accordingly.
         [HttpPost]
         public IActionResult Index(IFormCollection formCollection)
         {
@@ -46,7 +50,6 @@ namespace twitterProject.Controllers
 
             var user = _context.Users.FirstOrDefault<User>(m => m.Email == email);
 
-            //Email does not exist
             if (user == null)
             {
                 ViewBag.message = "User does not exist!";
@@ -54,9 +57,10 @@ namespace twitterProject.Controllers
             }
             else
             {
-                //Checking Password
                 if (user.Password.Equals(formCollection["password"].ToString().Trim()))
                 {
+                    //I tried to set the expiry time for a cookie but could not figure that out.
+                    //This is one of the difficulties that we faced and could not figure out.
                     // Response.Cookies("Check") = 12;
                     Response.Cookies.Append("Check", user.FirstName);
                     Response.Cookies.Append("Id", user.Id.ToString());
@@ -72,6 +76,7 @@ namespace twitterProject.Controllers
             }
         }
 
+        //Destroy Cookies
         public ActionResult Logout()
         {
             Response.Cookies.Delete("Check");

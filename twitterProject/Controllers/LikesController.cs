@@ -64,12 +64,16 @@ namespace twitterProject.Controllers
         {
             try
             {
+                //Removing the properties that are not needed while creating a like
+                //Validating the Model State
+                //Another big issue we faced using .NET 6
                 ModelState.Remove(nameof(like.Tweet));
                 ModelState.Remove(nameof(like.User));
 
-                bool flag = _context.Likes.Any(e => e.UserID == like.UserID && e.TweetID == like.TweetID);
+                bool likeExists = _context.Likes.Any(e => e.UserID == like.UserID && e.TweetID == like.TweetID);
 
-                if (flag == false)
+                //If like does not exist create one.
+                if (likeExists == false)
                 {
                     if (ModelState.IsValid)
                     {
@@ -80,6 +84,7 @@ namespace twitterProject.Controllers
 
                     return RedirectToAction("Index", "Tweets");
                 }
+                //Delete the like if it exists.
                 else
                 {
                     return RedirectToAction("Delete", new { UserID = like.UserID, TweetID = like.TweetID });

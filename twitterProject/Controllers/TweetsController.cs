@@ -24,38 +24,43 @@ namespace twitterProject.Controllers
         // GET: Tweets
         public async Task<IActionResult> Index()
         {
+            //If user is not logged in, redirect to login page.
             if (Request.Cookies["Check"] == null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            List<Tweet> myFeed = new List<Tweet>();
-            List<int> followingIDs = new List<int>();
+            //Lists to store all the tweets and followings.
+            List<Tweet> allTweets = new List<Tweet>();
+            List<int> followingList = new List<int>();
 
+            // Only show my tweets and tweets of the users I follow.
             var user = await _context.Users
                 .Include(t => t.Tweets)
                 .Include(t => t.Follows)
-                .FirstOrDefaultAsync(m => m.Id == Int32.Parse(Request.Cookies["ID"]));
+                .FirstOrDefaultAsync(m => m.Id == Int32.Parse(Request.Cookies["Id"]));
 
-            var followingIDss = _context.Follow
+            var followings = _context.Follow
                 .Where<Follow>(m => m.UserID == user.Id);
 
-            followingIDs.Add(user.Id);
+            followingList.Add(user.Id);
 
-            foreach (Follow f in followingIDss)
+            foreach (Follow f in followings)
             {
-                followingIDs.Add(f.FollowingID);
+                followingList.Add(f.FollowingID);
             }
 
             var followingTweets = _context.Tweets
                 .Include(t => t.User)
                 .Include(t => t.Likes)
-                .Where<Tweet>(m => followingIDs.Contains(m.UserId));
+                .Where<Tweet>(m => followingList.Contains(m.UserId));
 
-            myFeed = followingTweets.ToList<Tweet>();
+            //Creating a list of all the tweets.
+            allTweets = followingTweets.ToList<Tweet>();
+            //Order the list by decending order so that latest one comes on top.
+            List<Tweet> SortedList = allTweets.OrderByDescending(t => t.CreatedDate).ToList();
 
-            List<Tweet> SortedList = myFeed.OrderByDescending(t => t.CreatedDate).ToList();
-
+            //Returning the list to the view.
             return View(SortedList);
         }
 
@@ -102,12 +107,14 @@ namespace twitterProject.Controllers
         {
             try
             {
+                //Again validating Model state by removing the properties that are not needed.
                 ModelState.Remove(nameof(tweet.Likes));
                 ModelState.Remove(nameof(tweet.UserId));
                 ModelState.Remove(nameof(tweet.User));
                 ModelState.Remove(nameof(tweet.CreatedDate));
-
+                //Fetching user Id from cookies.
                 tweet.UserId = Int32.Parse(Request.Cookies["Id"]);
+                //Setting current Date and Time.
                 tweet.CreatedDate = DateTime.Now;
 
                 if (ModelState.IsValid)

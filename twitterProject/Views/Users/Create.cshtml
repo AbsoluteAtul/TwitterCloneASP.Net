@@ -63,11 +63,12 @@
                 <label asp-for="Password" class="control-label"></label> <br/>
                 <input asp-for="Password" class="form-control" /> <br/>
                 <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
+            </div>    
             <div class="form-group">
                 <input type="submit" value="Register" class="btn btn-dark btn-lg btn-outline-light btn-block signup" />
             </div>
         </form>
+                    <p class="text-danger m-auto w-75">@ViewBag.message</p>
     </div>
 </div>
 

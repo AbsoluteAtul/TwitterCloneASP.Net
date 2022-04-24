@@ -16,6 +16,7 @@ namespace twitterProject.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Building the relationship between tables
             modelBuilder.Entity<Like>()
                 .HasKey(t => new { t.TweetID, t.UserID });
 

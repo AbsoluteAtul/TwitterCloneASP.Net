@@ -16,6 +16,7 @@ namespace twitterProject.Data
                 return;   // DB has been seeded
             }
 
+            //Add users on the time of DB creation
             var users = new User[]
             {
             new User{FirstName="Than",LastName="Thao", Email="thao@gmail.com", Password="12345",},

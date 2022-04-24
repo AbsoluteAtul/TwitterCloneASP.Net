@@ -36,6 +36,7 @@ namespace twitterProject.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        //Each user will have a collection of tweets, likes and follows.
         public ICollection<Tweet> Tweets { get; set; }
         public ICollection<Like> Likes { get; set; }
         public ICollection<Follow> Follows { get; set; }

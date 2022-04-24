@@ -15,10 +15,16 @@ namespace twitterProject.Controllers
     public class UsersController : Controller
     {
         private readonly TwitterContext _context;
+        //Log messages
+        private readonly ILogger<HomeController> _logger;
+        //Request and response information
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UsersController(TwitterContext context)
+        public UsersController(TwitterContext context, ILogger<HomeController> logger, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         // GET: Users
@@ -71,17 +77,21 @@ namespace twitterProject.Controllers
         {
             try
             {
-                // ignore tweet, like and follow property
+                // Ignore tweet, like and follow property in order to validate the model
                 ModelState.Remove(nameof(user.Tweets));
                 ModelState.Remove(nameof(user.Likes));
                 ModelState.Remove(nameof(user.Follows));
 
                 if (ModelState.IsValid)
                 {
+                    //Before creating a new user, check if the email already exists.
+                    //If exists cancel operating and show error
                     if (EmailExists(user.Email))
                     {
-                        return RedirectToAction(nameof(Create));
+                        ViewBag.message = "Email already in Use!";
+                        return View();
                     }
+                    //Otherwise create a new user.
                     else
                     {
                         _context.Add(user);
@@ -100,6 +110,7 @@ namespace twitterProject.Controllers
         // GET: Users/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            //If the user is not logged in, redirect him to login page.
             if (Request.Cookies["Check"] == null)
             {
                 return RedirectToAction("Index", "Home");
