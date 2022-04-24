@@ -4,132 +4,138 @@
 @*@model twitterProject.Models.Tweet*@
 
 @{
-    ViewData["Title"] = "Home Page";
+  ViewData["Title"] = "Home Page";
 }
 
 
 @{
-    int currentUserID = Int32.Parse(httpContextaccessor.HttpContext.Request.Cookies["Id"]);       
+  int currentUserID = Int32.Parse(httpContextaccessor.HttpContext.Request.Cookies["Id"]);
 }
 
 <html>
-    <head>
-       <link rel='stylesheet' type='text/css' media='screen' href='~/css/style.css'>
-       
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/3789dd4df1.js" crossorigin="anonymous"></script>
-    </head>
-     <i class="fa-brands fa-twitter fa-4x "></i>
-        <div class="layout">
-        <div class="layout__left-sidebar">
-            <div class="sidebar-menu">
 
-                <div class="sidebar-menu__item sidebar-menu__item--active">
-                    <img src="./svg/home.svg" class="sidebar-menu__item-icon" />
-                     @Html.ActionLink("Home", "Index", "Tweets", null)
-                </div>
-                <div class="sidebar-menu__item">
-                    <img src="./svg/explore.svg" class="sidebar-menu__item-icon" />
-                     @Html.ActionLink("Tweet", "Create", "Tweets", null)
-                </div>
+<head>
+  <link rel='stylesheet' type='text/css' media='screen' href='~/css/style.css'>
 
-                <div class="sidebar-menu__item">
-                    <img src="./svg/profile.svg" class="sidebar-menu__item-icon" />
-                    @Html.ActionLink("Users", "Index", "Users", null)
-                </div>
-                 @{
-                string name = httpContextaccessor.HttpContext.Request.Cookies["Check"];
-                string UserId = httpContextaccessor.HttpContext.Request.Cookies["Id"];
-        
-                }
-                <div class="sidebar-menu__item">
-                    <img src="./svg/profile.svg" class="sidebar-menu__item-icon" />
-                    <a style="text-decoration:none;" class="nav-text text-light" asp-action="Edit" asp-controller="Users" asp-route-id="@UserId">
-                  <span>@name</span></a>
-                </div>
-                <div class="sidebar-menu__item">
-                    <img src="./svg/more.svg" class="sidebar-menu__item-icon" />
-                     @Html.ActionLink("Logout", "Logout", "Home", null)
-                </div>
-            </div>
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/3789dd4df1.js" crossorigin="anonymous"></script>
+</head>
+<i class="fa-brands fa-twitter fa-4x brand"></i>
+
+<body>
+  @* <div class="tweetBody">*@
+
+  @*@* <form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+    <input asp-for="Description" class="form-control" />
+    <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+    </form>*@
+
+  <div class="layout">
+    <div class="layout__left-sidebar">
+      <div class="sidebar-menu">
+
+        <div class="sidebar-menu__item sidebar-menu__item--active">
+          <img src="./svg/home.svg" class="sidebar-menu__item-icon" />
+          @Html.ActionLink("Home", "Index", "Tweets", null)
         </div>
+        <div class="sidebar-menu__item">
+          <img src="./svg/explore.svg" class="sidebar-menu__item-icon" />
+          @Html.ActionLink("Tweet", "Create", "Tweets", null)
         </div>
 
-    <body>
-        <div  class="tweetBody">
+        <div class="sidebar-menu__item">
+          <img src="./svg/profile.svg" class="sidebar-menu__item-icon" />
+          @Html.ActionLink("Users", "Index", "Users", null)
+        </div>
+        @{
+          string name = httpContextaccessor.HttpContext.Request.Cookies["Check"];
+          string UserId = httpContextaccessor.HttpContext.Request.Cookies["Id"];
 
-   @*@*         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+        }
+        <div class="sidebar-menu__item">
+          <img src="./svg/profile.svg" class="sidebar-menu__item-icon" />
+          <a style="text-decoration:none;" class="nav-text text-light" asp-action="Edit" asp-controller="Users"
+            asp-route-id="@UserId">
+            <span>@name</span></a>
+        </div>
+        <div class="sidebar-menu__item">
+          <img src="./svg/more.svg" class="sidebar-menu__item-icon" />
+          @Html.ActionLink("Logout", "Logout", "Home", null)
+        </div>
+      </div>
+    </div>
+    <div class="layout__main">
+
+
+
+
+
+      @foreach (var item in Model)
+      {
+
+
+
+
+        //------------------------------------------------------
+
+        <div class="tweet">
+          <img class="tweet__author-logo" src="./img/profile-image-3.jpg" />
+          <div class="tweet__main">
+            <div class="tweet__header">
+              <div class="tweet__author-name">
+                @Html.DisplayFor(modelItem => item.User.FirstName)
+              </div>
+              <div class="tweet__author-slug">
+                @Html.DisplayFor(modelItem => item.User.Email)
+              </div>
+              <div class="tweet__publish-time">
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+              </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="tweet__content">
+              @Html.DisplayFor(modelItem => item.Description)
             </div>
-        </form>*@
 
 
+          @{
+            var valuesToPass = new Dictionary<string, string>
+            {
+            { "TweetID", item.Id.ToString() },
+            { "UserID", currentUserID.ToString() }
+            };
 
+            string imgPath = "";
 
+            if (item.Likes.FirstOrDefault<Like>(l => l.UserID == currentUserID && l.TweetID == item.Id) != null)
+            {
+              imgPath = "./img/heart-solid.svg";
 
-@foreach (var item in Model) {
- <div class="layout__main">
-<div class="tweetContainer">
-    <div class="tweetHeader">
-    <div class="username">
-        @Html.DisplayFor(modelItem => item.User.FirstName)
-    </div> 
-    <div class="email">
-         @Html.DisplayFor(modelItem => item.User.Email)
-    </div>
-        <div class="date">
-     @Html.DisplayFor(modelItem => item.CreatedDate)
-    </div>
-    </div>
-    <div class="description">
-         @Html.DisplayFor(modelItem => item.Description)
-    </div>
-
-@*    <hr />*@
-     @{
-                var parms = new Dictionary<string, string>
-                        {
-                            { "TweetID", item.Id.ToString() },
-                            { "UserID", currentUserID.ToString() }
-                        };
-
-                string imgPath = "";
-
-                if (item.Likes.FirstOrDefault<Like>(l => l.UserID == currentUserID && l.TweetID == item.Id) != null)
-                {
-                    imgPath = "https://img.icons8.com/office/344/like--v1.png";
-                }
-                else
-                {
-                    imgPath = "https://img.icons8.com/ios/344/like--v1.png";
-                }
             }
-            <div class="likeContainer">
-            @item.Likes.Count <a class="mb-0 p-1" style="text-decoration:none;" asp-action="Create" asp-controller="Likes" asp-all-route-data = "parms">
-                <img class="imgLike" alt="" src="@imgPath"/></a>
+            else
+            {
+              imgPath = "./img/heart-regular.svg";
+            }
+          }
+          <div class="likeContainer">
+            <a asp-action="Create" asp-controller="Likes"
+            asp-all-route-data="valuesToPass">
+
+              <img class="imgLike" alt="" src="@imgPath" />
+          
+          </a>
+              @item.Likes.Count likes
+              </div>
+          </div>
         </div>
+     }
 
-       </div>
-
-
-
-
-       </div>
-
-       //---------------------------------------------------------------
-
-      
-
-       //-----------------------------------------------------------------------
-}
-</div>
- <div class="layout__right-sidebar-container">
+      <div class="layout__right-sidebar-container">
         <div class="layout__right-sidebar">
           <div class="trends-for-you">
             <div class="trends-for-you__block">
@@ -146,14 +152,6 @@
               </div>
               <div class="trends-for-you__meta-information">
                 155k Tweets
-              </div>
-            </div>
-            <div class="trends-for-you__block">
-              <div class="trends-for-you__meta-information">
-                Trending in Germany
-              </div>
-              <div class="trends-for-you__trend-name">
-                #AmazonPrimeDay
               </div>
             </div>
             <div class="trends-for-you__block">
@@ -175,10 +173,7 @@
               </div>
             </div>
             <div class="who-to-follow__block">
-              <img
-                class="who-to-follow__author-logo"
-                src="./img/profile-image-1.jpg"
-              />
+              <img class="who-to-follow__author-logo" src="./img/profile-image-1.jpg" />
               <div class="who-to-follow__content">
                 <div>
                   <div class="who-to-follow__author-name">
@@ -194,10 +189,7 @@
               </div>
             </div>
             <div class="who-to-follow__block">
-              <img
-                class="who-to-follow__author-logo"
-                src="./img/profile-image-2.png"
-              />
+              <img class="who-to-follow__author-logo" src="./img/profile-image-2.png" />
               <div class="who-to-follow__content">
                 <div>
                   <div class="who-to-follow__author-name">
@@ -214,10 +206,7 @@
             </div>
 
             <div class="who-to-follow__block">
-              <img
-                class="who-to-follow__author-logo"
-                src="./img/profile-image-3.jpg"
-              />
+              <img class="who-to-follow__author-logo" src="./img/profile-image-3.jpg" />
               <div class="who-to-follow__content">
                 <div>
                   <div class="who-to-follow__author-name">
@@ -234,11 +223,11 @@
             </div>
           </div>
         </div>
-   
 
-               </div>
-    </body>
+
+      </div>
+    </div>
+    </div>
+</body>
+
 </html>
-
-
-

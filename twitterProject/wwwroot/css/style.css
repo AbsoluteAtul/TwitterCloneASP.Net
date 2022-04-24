@@ -45,6 +45,15 @@ html {
     background-color: aliceblue
 }
 
+.editform {
+    background-color: #f5f8fa;
+    text-align: center;
+    border-radius: 20px;
+    width:80%;
+    margin-bottom:20%;
+}
+
+
 .form-group {
     margin: 10px 70px;
     width: 70%;
@@ -52,10 +61,21 @@ html {
 
 /*/////////////////////////////////////////////////////SIDEBAR/////////////////////////////////////////////////////////*/
 
+.brand {
+    height: 28px;
+    filter: invert(46%) sepia(99%) saturate(1449%) hue-rotate(176deg) brightness(100%) contrast(91%);
+    padding: 10px;
+}
+
 .layout {
     display: grid;
     grid-template-columns: 275px auto 350px;
-    margin: 0 10\; max-width: 1200px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.layout__main {
+    width: 90%;
 }
 
 .layout__right-sidebar {
@@ -190,96 +210,18 @@ a {
 }
 
 .tweetBox {
-    background-color: #1da1f2;
+    background-color: #f5f8fa;
     text-align: center;
-    margin-left: 30%;
+    border-radius:20px;
+    width:95%;
+}
+
+.textBox {
     margin-top: 10%;
-}
-
-/*/////////////////////////// Tweet Page //////////////////////////*/
-
-.tweetBody {
-    background-color: deepskyblue;
-    text-align: center;
-    width: 70%;
-    margin-left: 15%;
-}
-
-.tweetContainer {
-    display: flex;
-    border-bottom: 1px solid #e6ecf0;
-    margin-bottom: 2px;
-    padding: 10px 15px;
-}
-
-    .tweetContainer:hover {
-        background: rgba(0, 0, 0, 0.03);
-        cursor: pointer;
-    }
-
-    .tweetContainer a {
-        color: #1b94e0;
-        text-decoration: none;
-    }
-
-        .tweetContainer a:hover {
-            text-decoration: underline;
-        }
-
-.tweetHeader {
-    display: flex;
-}
-
-.username {
-    /*font-weight: 800;
-    text-align: left;
-    margin-top: 1%;
-    margin-left: 1%;
-    padding-left: 5%;*/
-    font-size: 15px;
-    font-weight: 700;
-    color: #14171a;
-    margin-right: 5px;
-}
-
-.email {
-    /* text-align: left;
-    margin-top: 1%;
-    margin-left: 1%;*/
-    color: #5b7083;
-    font-size: 15px;
-}
-
-.date {
-    margin-left: 5px;
-    color: #657786;
-}
-
-.likeContainer {
-    margin-bottom: 1%;
-    margin-left: 1%;
-    padding-left: 5%;
-    margin-left: 0%;
-    text-align: left;
-}
-
-.imgLike {
-    width: 3%;
-    text-align: left;
-    margin-left: 0%;
-}
-
-.description {
-    display: block;
-    text-align: center;
-    margin: 1%;
-}
-
-.layout {
-    display: grid;
-    grid-template-columns: 275px auto 350px;
-    margin: 0 auto;
-    max-width: 1200px;
+    display: inline-block;
+    padding: 5px 10px;
+    width: 100%;
+    height: 160px;
 }
 
 /*/////////////////////////////////////RIGHT SIDEBAR/////////////////////////////////////////////////////////*/
@@ -387,4 +329,112 @@ a {
         cursor: pointer;
     }
 
-/*//////////////////////////////////////////////////////////////////////////////////////////////*/
+/*/////////////////////////////////////////TWEET/////////////////////////////////////////////////////*/
+
+.tweet {
+    display: flex;
+    border-bottom: 1px solid #e6ecf0;
+    margin-bottom: 2px;
+    padding: 10px 15px;
+}
+
+    .tweet:hover {
+        background: rgba(0, 0, 0, 0.03);
+        cursor: pointer;
+    }
+
+    .tweet a {
+        color: #1b94e0;
+        text-decoration: none;
+    }
+
+        .tweet a:hover {
+            text-decoration: underline;
+        }
+
+.tweet__author-logo {
+    width: 49px;
+    height: 49px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.tweet__header {
+    display: flex;
+}
+
+.tweet__author-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #14171a;
+    margin-right: 5px;
+}
+
+.tweet__author-slug {
+    color: #5b7083;
+    font-size: 15px;
+}
+
+.tweet__publish-time {
+    margin-left: 5px;
+    color: #657786;
+}
+
+.tweet__content {
+    margin: 10px;
+}
+
+.imgLike {
+    width: 8%;
+    text-align: left;
+    margin-left: 0%;
+    color: #1da1f2;
+}
+
+.likeContainer {
+    display: flex;
+}
+
+/*//////////////////////////////////////////////TABLEE////////////////////////////////////////////////*/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+*, *:before, *:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.tableUser {
+    width: 95%;
+    background: #f5f8fa;
+    border-radius: 19px;
+    border-collapse: collapse;
+    margin: 1em;
+}
+
+td {
+    color: black;
+    font-weight: 400;
+    padding: 0.65em 1em;
+}
+
+.disabled td {
+    color: #4F5F64;
+}
+
+tbody tr {
+    transition: background 0.25s ease;
+}
+
+    tbody tr:hover {
+        background: rgba(0, 0, 0, 0.03);
+    }
+
+.followUser {
+    background-color: #1da1f2;
+    color: white;
+    font-weight: bold;
+    margin: 5% 3% 5% 0;
+    width: 100%;
+    border-radius: 99px;
+}

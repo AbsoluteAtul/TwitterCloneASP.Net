@@ -18,11 +18,11 @@ namespace twitterProject.Data
 
             var users = new User[]
             {
-            new User{FirstName="Than",LastName="Thao", Email="thao@gmail.com", Password="1234",},
-             new User{FirstName="Tejvir",LastName="Singh", Email="tej@gmail.com", Password="1234",},
-              new User{FirstName="Waseq",LastName="Rahman", Email="waseq@gmail.com", Password="1234",},
-                new User{FirstName="Atul",LastName="Rana", Email="atul@gmail.com", Password="1234",},
-                new User{FirstName="Dhvanil",LastName="Sharma", Email="dhvanil@gmail.com", Password="1234",}
+            new User{FirstName="Than",LastName="Thao", Email="thao@gmail.com", Password="12345",},
+             new User{FirstName="Tejvir",LastName="Singh", Email="tej@gmail.com", Password="12345",},
+              new User{FirstName="Waseq",LastName="Rahman", Email="waseq@gmail.com", Password="12345",},
+                new User{FirstName="Atul",LastName="Rana", Email="atul@gmail.com", Password="12345",},
+                new User{FirstName="Dhvanil",LastName="Sharma", Email="dhvanil@gmail.com", Password="12345",}
             };
             foreach (User u in users)
             {

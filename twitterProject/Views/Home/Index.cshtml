@@ -23,10 +23,9 @@
 
     <!-- Javascript -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous">
-const jqueryValidate = require("../../wwwroot/lib/jquery-validation/dist/jquery.validate");
-</script>
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+            const jqueryValidate = require("../../wwwroot/lib/jquery-validation/dist/jquery.validate");
+        </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
@@ -55,11 +54,13 @@ const jqueryValidate = require("../../wwwroot/lib/jquery-validation/dist/jquery.
             <h1>Happening now</h1>
             <h3>Join Twitter today.</h3>
 
-            <button class="btn btn-dark btn-lg btn-outline-light btn-block signup" type="button"  onclick="redirectSignUp();">Sign Up</button>
+            <button class="btn btn-dark btn-lg btn-outline-light btn-block signup" type="button"
+                onclick="redirectSignUp();">Sign Up</button>
 
-            <button class="btn btn-light btn-lg btn-outline-light btn-block loginbtn" type="button" onclick="showModal();">Log in</button>
+            <button class="btn btn-light btn-lg btn-outline-light btn-block loginbtn" type="button"
+                onclick="showModal();">Log in</button>
 
-             <p class="text-danger m-auto w-75">@ViewBag.message</p>
+            <p class="text-danger m-auto w-75">@ViewBag.message</p>
         </div>
 
 
@@ -69,18 +70,20 @@ const jqueryValidate = require("../../wwwroot/lib/jquery-validation/dist/jquery.
 
                 <div class="container logincontainer">
                     <i class="fa-brands fa-twitter fa-4x "></i>
-                   @* <button id="closeBtn" class="closeBtn" value="X" onclick="closeModal();"></button>*@
+                    @* <button id="closeBtn" class="closeBtn" value="X" onclick="closeModal();"></button>*@
                     <h1>Sign into Twitter</h1>
                     <div>
-                    @Html.TextBox("Email", null, new { @class = "form-control w-100", placeholder = "Email" })
+                        @Html.TextBox("Email", null, new { @class = "form-control w-100", placeholder = "Email" })
                     </div>
                     <br />
                     <div>
-                    @Html.Password("Password", null, new { @class = "form-control w-100", placeholder = "Password" })
+                        @Html.Password("Password", null, new { @class = "form-control w-100", placeholder = "Password"
+                        })
                     </div>
-                 @*   <p class="text-danger m-auto w-75">@ViewBag.message</p>*@
+                    @* <p class="text-danger m-auto w-75">@ViewBag.message</p>*@
                     <br />
-                    <button id="loginbtn" value="Login" formaction="/Home" class="btn btn-dark btn-lg button" type="submit">Login</button>
+                    <button id="loginbtn" value="Login" formaction="/Home" class="btn btn-dark btn-lg button"
+                        type="submit">Login</button>
                 </div>
             </form>
         </div>
@@ -92,25 +95,25 @@ const jqueryValidate = require("../../wwwroot/lib/jquery-validation/dist/jquery.
     // Get the modal
     var modal = document.getElementById('id01');
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-    if (event.target == modal) {
-    modal.style.display = "none";
-    }
+    // When the user clicks anywhere outside of the modal,  it closes the model
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
     }
 
     //function closeModal(){
     //    modal.style.display = "none";
     //}
 
-    function redirectSignUp(){
-    document.location = '@Url.Action("Create","Users")';
+    function redirectSignUp() {
+        document.location = '@Url.Action("Create","Users")';
     }
 
 
-    function showModal(){
-    document.getElementById('id01').style.display='block';
-    document.getElementById('id01').style.width='auto';
+    function showModal() {
+        document.getElementById('id01').style.display = 'block';
+        document.getElementById('id01').style.width = 'auto';
     }
 
 </script>
@@ -119,4 +122,3 @@ const jqueryValidate = require("../../wwwroot/lib/jquery-validation/dist/jquery.
 
 
 @*--------------------------------------------------------------------------------------------------*@
-

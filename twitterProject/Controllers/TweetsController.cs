@@ -62,6 +62,10 @@ namespace twitterProject.Controllers
         // GET: Tweets/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (Request.Cookies["Check"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -81,6 +85,10 @@ namespace twitterProject.Controllers
         // GET: Tweets/Create
         public IActionResult Create()
         {
+            if (Request.Cookies["Check"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
             return View();
         }

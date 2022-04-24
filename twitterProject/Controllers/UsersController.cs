@@ -37,6 +37,10 @@ namespace twitterProject.Controllers
         // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (Request.Cookies["Check"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -74,9 +78,16 @@ namespace twitterProject.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    _context.Add(user);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    if (EmailExists(user.Email))
+                    {
+                        return RedirectToAction(nameof(Create));
+                    }
+                    else
+                    {
+                        _context.Add(user);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
                 }
             }
             catch (Exception e)
@@ -89,6 +100,10 @@ namespace twitterProject.Controllers
         // GET: Users/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (Request.Cookies["Check"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -169,6 +184,11 @@ namespace twitterProject.Controllers
         private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.Id == id);
+        }
+
+        private bool EmailExists(string email)
+        {
+            return _context.Users.Any(e => e.Email == email);
         }
     }
 }
