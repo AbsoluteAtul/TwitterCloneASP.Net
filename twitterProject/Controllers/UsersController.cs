@@ -1,5 +1,4 @@
 ﻿#nullable disable
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,13 +39,10 @@ namespace twitterProject.Controllers
                 .ToListAsync());
         }
 
+        // GET:
         // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (Request.Cookies["Check"] == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
             if (id == null)
             {
                 return NotFound();
@@ -73,7 +69,7 @@ namespace twitterProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,Password")] User user)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,Password,ImageUrl")] User user)
         {
             try
             {
@@ -133,8 +129,12 @@ namespace twitterProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,Password")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,Password,ImageUrl")] User user)
         {
+            // Ignore tweet, like and follow property in order to validate the model
+            ModelState.Remove(nameof(user.Tweets));
+            ModelState.Remove(nameof(user.Likes));
+            ModelState.Remove(nameof(user.Follows));
             if (id != user.Id)
             {
                 return NotFound();
@@ -158,7 +158,8 @@ namespace twitterProject.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                Response.Cookies.Append("Check", user.FirstName);
+                return RedirectToAction("Index", "Tweets");
             }
             return View(user);
         }

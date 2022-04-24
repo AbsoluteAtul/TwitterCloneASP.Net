@@ -19,11 +19,11 @@ namespace twitterProject.Data
             //Add users on the time of DB creation
             var users = new User[]
             {
-            new User{FirstName="Than",LastName="Thao", Email="thao@gmail.com", Password="12345",},
-             new User{FirstName="Tejvir",LastName="Singh", Email="tej@gmail.com", Password="12345",},
-              new User{FirstName="Waseq",LastName="Rahman", Email="waseq@gmail.com", Password="12345",},
-                new User{FirstName="Atul",LastName="Rana", Email="atul@gmail.com", Password="12345",},
-                new User{FirstName="Dhvanil",LastName="Sharma", Email="dhvanil@gmail.com", Password="12345",}
+            new User{FirstName="Than",LastName="Thao", Email="thao@gmail.com", ImageUrl="https://avatars.githubusercontent.com/u/56978370?v=4", Password="12345",},
+             new User{FirstName="Tejvir",LastName="Singh", Email="tej@gmail.com",ImageUrl="https://avatars.githubusercontent.com/u/62151509?v=4" , Password="12345",},
+              new User{FirstName="Waseq",LastName="Rahman", Email="waseq@gmail.com", ImageUrl="https://avatars.githubusercontent.com/u/56893007?v=4", Password="12345",},
+                new User{FirstName="Atul",LastName="Rana", Email="atul@gmail.com", ImageUrl="https://avatars.githubusercontent.com/u/88677125?v=4", Password="12345",},
+                new User{FirstName="Dhvanil",LastName="Sharma", Email="dhvanil@gmail.com", ImageUrl="https://avatars.githubusercontent.com/u/80846153?v=4", Password="12345",}
             };
             foreach (User u in users)
             {

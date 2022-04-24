@@ -29,12 +29,16 @@ namespace twitterProject.Models
         [Column("Email")]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "ImageUrl is required")]
+        public string ImageUrl { get; set; }
+
         [Required(ErrorMessage = "Password is required")]
         [StringLength(50, MinimumLength = 5)]
         [Column("Password")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
+
 
         //Each user will have a collection of tweets, likes and follows.
         public ICollection<Tweet> Tweets { get; set; }

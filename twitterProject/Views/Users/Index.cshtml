@@ -71,6 +71,8 @@
         <tbody>
             @foreach (var item in Model)
             {
+                string imagePath = item.ImageUrl;
+
                 if (item.Id != loggedUserId)
                 {
                     string btnTitle = "";
@@ -88,11 +90,15 @@
 
                     <tr>
                         <td>
+                             <img class="tweet__author-logo" src="@imagePath" />
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.FirstName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Email)
                         </td>
+
                         @{
                             var valuesToPass = new Dictionary<string, string>
                         {
